@@ -1,89 +1,29 @@
-# Amplifier: Metacognitive AI Development
+# Amplifier Marketplace: AI-Powered Development Capabilities
 
-> _"Automate complex workflows by describing how you think through them."_
+> _"Coordinated development capabilities for Claude Code"_
 
 > [!CAUTION]
 > This project is a research demonstrator. It is in early development and may change significantly. Using permissive AI tools in your repository requires careful attention to security considerations and careful human supervision, and even then things can still go wrong. Use it with caution, and at your own risk. See [Disclaimer](#disclaimer).
 
-Amplifier is a coordinated and accelerated development system that turns your expertise into reusable AI tools without requiring code. Describe the step-by-step thinking process for handling a task—a "metacognitive recipe"—and Amplifier builds a tool that executes it reliably. As you create more tools, they combine and build on each other, transforming individual solutions into a compounding automation system.
+Amplifier Marketplace is a Claude Code plugin marketplace providing AI-powered development capabilities including core utilities, Document-Driven Development methodology, design intelligence, knowledge synthesis, and example recipes. Each plugin provides specialized agents, commands, and workflows that enhance Claude Code's development capabilities.
 
 ## 🚀 QuickStart
 
-### Prerequisites Guide
+### Prerequisites
 
-<details>
-<summary>Click to expand prerequisite instructions</summary>
+Claude Code must be installed and configured. See [Claude Code Documentation](https://docs.anthropic.com/claude/docs/claude-code) for setup instructions.
 
-1. Check if prerequisites are already met.
+### Installation
 
-   - ```bash
-     python3 --version  # Need 3.11+
-     ```
-   - ```bash
-     uv --version       # Need any version
-     ```
-   - ```bash
-     node --version     # Need any version
-     ```
-   - ```bash
-     pnpm --version     # Need any version
-     ```
-   - ```bash
-     git --version      # Need any version
-     ```
-
-2. Install what is missing.
-
-   **Mac**
-
-   ```bash
-   brew install python3 node git pnpm uv
-   ```
-
-   **Ubuntu/Debian/WSL**
-
-   ```bash
-   # System packages
-   sudo apt update && sudo apt install -y python3 python3-pip nodejs npm git
-
-   # pnpm
-   npm install -g pnpm
-   pnpm setup && source ~/.bashrc
-
-   # uv (Python package manager)
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-   ```
-
-   **Windows**
-
-   1. Install [WSL2](https://learn.microsoft.com/windows/wsl/install)
-   2. Run Ubuntu commands above inside WSL
-
-   **Manual Downloads**
-
-   - [Python](https://python.org/downloads) (3.11 or newer)
-   - [Node.js](https://nodejs.org) (any recent version)
-   - [pnpm](https://pnpm.io/installation) (package manager)
-   - [Git](https://git-scm.com) (any version)
-   - [uv](https://docs.astral.sh/uv/getting-started/installation/) (Python package manager)
-
-> **Platform Note**: Development and testing has primarily been done in Windows WSL2. macOS and Linux should work but have received less testing. Your mileage may vary.
-
-</details>
-
-### Setup
+Install the marketplace as a Claude Code plugin:
 
 ```bash
-# Clone Amplifier repository
-git clone https://github.com/microsoft/amplifier.git amplifier
-cd amplifier
+# Install from GitHub
+claude plugins install https://github.com/bryonjacob/amplifier-marketplace.git
 
-# Install dependencies
-make install
-
-# Activate virtual environment
-source .venv/bin/activate  # Linux/Mac/WSL
-# .venv\Scripts\Activate.ps1  # Windows PowerShell
+# Or clone and install locally for development
+git clone https://github.com/bryonjacob/amplifier-marketplace.git
+claude plugins install ./amplifier-marketplace
 ```
 
 ### Get Started
@@ -93,331 +33,187 @@ source .venv/bin/activate  # Linux/Mac/WSL
 claude
 ```
 
-**Create your first tool in 5 steps:**
+The marketplace installs 5 plugins with their capabilities:
 
-1. **Identify a task** you want to automate (e.g., "weekly learning digest")
+**Core Plugin (`amp`)** - Installed automatically:
+- 21 specialized agents (zen-architect, bug-hunter, security-guardian, etc.)
+- 11 utility commands (/amp:commit, /amp:prime, etc.)
+- Core development workflows
 
-   Need ideas? Try This:
-
-   ```
-   /ultrathink-task I'm new to "metacognitive recipes". What are some useful
-   tools I could create with Amplifier that show how recipes can self-evaluate
-   and improve via feedback loops? Just brainstorm ideas, don't build them yet.
-   ```
-
-2. **Describe the thinking process** - How would an expert handle it step-by-step?
-
-   Need help? Try This:
-
-   ```
-   /ultrathink-task This is my idea: <your idea here>. Can you help me describe the
-   thinking process to handle it step-by-step?
-   ```
-
-   Example of a metacognitive recipe:
-
-   ```markdown
-   I want to create a tool called "Research Synthesizer". Goal: help me research a topic by finding sources, extracting key themes, then asking me to choose which themes to explore in depth, and finally producing a summarized report.
-
-   Steps:
-
-   1. Do a preliminary web research on the topic and collect notes.
-   2. Extract the broad themes from the notes.
-   3. Present me the list of themes and highlight the top 2-3 you recommend focusing on (with reasons).
-   4. Allow me to refine or add to that theme list.
-   5. Do in-depth research on the refined list of themes.
-   6. Draft a report based on the deep research, ensuring the report stays within my requested length and style.
-   7. Offer the draft for my review and incorporate any feedback.
-   ```
-
-3. **Generate with `/ultrathink-task`** - Let Amplifier build the tool
-
-   ```
-   /ultrathink-task <your metacognitive recipe here>
-   ```
-
-4. **Refine through feedback** - "Make connections more insightful"
-
-   ```
-   Let's see how it works. Run <your generated tool>.
-   ```
-
-   Then:
-
-   - Observe and note issues.
-   - Provide feedback in context.
-   - Iterate until satisfied.
-
-**Learn more** with [Create Your Own Tools](docs/CREATE_YOUR_OWN_TOOLS.md) - Deep dive into the process.
-
----
-
-## 📖 How to Use Amplifier
-
-### Setup Your Project
-
-```bash
-# Clone Amplifier repository
-git clone https://github.com/microsoft/amplifier.git amplifier
+**DDD Plugin (`ddd`)** - Document-Driven Development:
 ```
-
-1. For existing GitHub projects
-
-   ```bash
-   # Add your project as a submodule
-   cd amplifier
-   git submodule add https://github.com/<your-username>/<your-project-name>.git my-project
-   ```
-
-2. For new projects
-
-   ```bash
-   # Create a new GitHub repository
-
-   # Option 1: gh CLI
-   gh repo create <your-username>/<your-project-name> --private
-
-   # Option 2: Go to https://github.com/new
-   ```
-
-   ```bash
-   # Initialize your new project
-   git init my-project
-   cd my-project/
-   git remote add origin https://github.com/<your-username>/<your-project-name>.git
-   echo "# My Project" > README.md
-   git add .
-   git commit -m "Initial commit"
-   git push -u origin main
-
-   # 2. Add as submodule
-   cd ../amplifier
-   git submodule add https://github.com/<your-username>/<your-project-name>.git my-project
-   ```
-
-```bash
-# Install dependencies
-make install
-
-# Activate virtual environment
-source .venv/bin/activate  # Linux/Mac/WSL
-# .venv\Scripts\Activate.ps1  # Windows PowerShell
-
-# Set up project context & start Claude
-echo "# Project-specific AI guidance" > my-project/AGENTS.md
-claude
-```
-
-_Tell Claude Code:_
-
-```
-I'm working on @my-project/ with Amplifier.
-Read @my-project/AGENTS.md for project context.
-Let's use /ddd:1-plan to design the architecture.
-```
-
-> [!NOTE]
->
-> **Why use this?** Clean git history per component, independent Amplifier updates, persistent context across sessions, scalable to multiple projects. See [Workspace Pattern for Serious Projects](#workspace-pattern-for-serious-projects) below for full details.
-
----
-
-## ✨ Features To Try
-
-### 🔧 Create Amplifier-powered Tools for Scenarios
-
-Amplifier is designed so **you can create new AI-powered tools** just by describing how they should think. See the [Create Your Own Tools](docs/CREATE_YOUR_OWN_TOOLS.md) guide for more information.
-
-- _Tell Claude Code:_ `Walk me through creating my own scenario tool`
-
-- _View the documentation:_ [Scenario Creation Guide](docs/CREATE_YOUR_OWN_TOOLS.md)
-
-### 🎨 Design Intelligence
-
-Amplifier includes comprehensive design intelligence with 7 specialist agents, evidence-based design knowledge, and orchestrated design workflows:
-
-- _Tell Claude Code:_
-
-  `/designer create a button component with hover states and accessibility`
-
-  `Use the art-director agent to establish visual direction for my app`
-
-  `Deploy component-designer to create a reusable card component`
-
-- _Available Design Specialists:_
-
-  - **animation-choreographer** - Motion design and transitions
-  - **art-director** - Aesthetic strategy and visual direction
-  - **component-designer** - Component design and creation
-  - **design-system-architect** - Design system architecture
-  - **layout-architect** - Information architecture and layout
-  - **responsive-strategist** - Device adaptation and responsive design
-  - **voice-strategist** - Voice & tone for UI copy
-
-- _Design Framework:_
-
-  - **9 Dimensions** - Purpose, hierarchy, color, typography, spacing, responsive, accessibility, motion, voice
-  - **4 Layers** - Foundational, structural, behavioral, experiential
-  - **Evidence-based** - WCAG 2.1, color theory, animation principles, accessibility standards
-
-- _View the documentation:_ [Design Intelligence](docs/design/README.md)
-
-### 🤖 Explore Amplifier's agents on your code
-
-Try out one of the specialized experts:
-
-- _Tell Claude Code:_
-
-  `Use the zen-architect agent to design my application's caching layer`
-
-  `Deploy bug-hunter to find why my login system is failing`
-
-  `Have security-guardian review my API implementation for vulnerabilities`
-
-- _View the files:_ [Agents](.claude/agents/)
-
-### 📝 Document-Driven Development
-
-**Why use this?** Eliminate doc drift and context poisoning. When docs lead and code follows, your specifications stay perfectly in sync with reality.
-
-Execute a complete feature workflow with numbered slash commands:
-
-```bash
 /ddd:1-plan         # Design the feature
 /ddd:2-docs         # Update all docs (iterate until approved)
 /ddd:3-code-plan    # Plan code changes
-/ddd:4-code         # Implement and test (iterate until working)
+/ddd:4-code         # Implement and test
 /ddd:5-finish       # Clean up and finalize
 ```
 
-Each phase creates artifacts the next phase reads. You control all git operations with explicit authorization at every step. The workflow prevents expensive mistakes by catching design flaws before implementation.
+**Design Plugin (`amp-design`)** - Design Intelligence:
+```
+/amp-design:designer    # Orchestrated design workflow
+```
+Plus 7 design specialist agents (art-director, component-designer, layout-architect, etc.)
 
-- _Tell Claude Code:_ `/ddd:0-help`
+**Knowledge Plugin (`amp-knowledge`)** - Knowledge Synthesis:
+- 10 knowledge synthesis agents
+- Multi-perspective analysis tools
 
-- _View the documentation:_ [Document-Driven Development Guide](docs/document_driven_development/)
+**Recipes Plugin (`amp-recipes`)** - Example implementations as Skills
 
-### 🌳 Parallel Development
+**Try it out:**
+```
+# Use Document-Driven Development
+/ddd:0-help
 
-**Why use this?** Stop wondering "what if" — build multiple solutions simultaneously and pick the winner.
+# Create with design intelligence
+/amp-design:designer create a button component with hover states
+
+# Commit with standardized messages
+/amp:commit
+```
+
+---
+
+## 📖 Plugin Capabilities
+
+### Available Plugins
+
+The marketplace provides 5 specialized plugins:
+
+#### 1. **amp** (Core Plugin)
+Required dependency for all other plugins.
+
+**21 Specialized Agents:**
+- `zen-architect` - Code planning, architecture design, and review
+- `modular-builder` - Module implementation from specifications
+- `bug-hunter` - Systematic debugging
+- `security-guardian` - Security reviews and audits
+- `test-coverage` - Test analysis and suggestions
+- `integration-specialist` - External service integration
+- `performance-optimizer` - Performance analysis and optimization
+- `api-contract-designer` - API design and documentation
+- `database-architect` - Database design and optimization
+- Plus 12 more specialized agents
+
+**11 Utility Commands:**
+- `/amp:commit` - Standardized git commits
+- `/amp:prime` - Load complete context
+- Plus 9 more utility commands
+
+#### 2. **ddd** (Document-Driven Development)
+6-phase development workflow with numbered slash commands.
+
+**Commands:**
+- `/ddd:0-help` - Workflow guide
+- `/ddd:1-plan` - Design and planning
+- `/ddd:2-docs` - Documentation retcon
+- `/ddd:3-code-plan` - Implementation planning
+- `/ddd:4-code` - Code implementation
+- `/ddd:5-finish` - Cleanup and finalization
+- `/ddd:status` - Show current progress
+- `/ddd:prime` - Load DDD context
+
+#### 3. **amp-design** (Design Intelligence)
+7 design specialist agents with evidence-based frameworks.
+
+**Command:**
+- `/amp-design:designer` - Orchestrated design workflow
+
+**7 Design Agents:**
+- `art-director` - Visual direction and aesthetic strategy
+- `component-designer` - Component design and creation
+- `layout-architect` - Information architecture
+- `animation-choreographer` - Motion design
+- `responsive-strategist` - Device adaptation
+- `voice-strategist` - UI copy voice & tone
+- `design-system-architect` - Design system architecture
+
+**Framework:**
+- 9 aesthetic dimensions (style, motion, voice, space, color, typography, proportion, texture, body)
+- 4 design layers (foundational, structural, behavioral, experiential)
+- WCAG 2.1 compliance, color theory, animation principles
+
+#### 4. **amp-knowledge** (Knowledge Synthesis)
+Multi-perspective knowledge analysis and synthesis.
+
+**10 Knowledge Agents:**
+- `concept-extractor` - Extract concepts from documents
+- `insight-synthesizer` - Discover breakthrough insights
+- `knowledge-archaeologist` - Trace idea evolution
+- `visualization-architect` - Create knowledge visualizations
+- `pattern-emergence` - Detect emergent patterns
+- Plus 5 more synthesis agents
+
+#### 5. **amp-recipes** (Example Recipes)
+Example implementations demonstrating development patterns, provided as Claude Code Skills.
+
+---
+
+## ✨ Using the Plugins
+
+### Plugin Development Workflow
+
+Each plugin provides capabilities you use directly in Claude Code:
+
+### Example Usage Patterns
+
+**Document-Driven Development:**
+```
+/ddd:1-plan         # Start new feature
+/ddd:2-docs         # Update documentation
+/ddd:4-code         # Implement changes
+/ddd:5-finish       # Clean up
+```
+
+**Design Intelligence:**
+```
+/amp-design:designer create a responsive navigation component
+
+# Or use specific agents
+Use art-director to establish visual direction
+Deploy component-designer for the card component
+```
+
+**Code Architecture:**
+```
+Use zen-architect to design the caching layer
+Have bug-hunter investigate the login failures
+Deploy security-guardian for API review
+```
+
+**Knowledge Synthesis:**
+```
+Use concept-extractor on these research papers
+Deploy insight-synthesizer to find connections
+Have visualization-architect create a knowledge graph
+```
+
+### Documentation
+
+- **Plugin Manifests:** [.claude-plugin/](plugins/)
+- **Design Framework:** [ai_context/design/](ai_context/design/)
+- **DDD Methodology:** [docs/document_driven_development/](docs/document_driven_development/)
+- **Philosophy:** [ai_context/IMPLEMENTATION_PHILOSOPHY.md](ai_context/IMPLEMENTATION_PHILOSOPHY.md)
+
+### Development
+
+For marketplace development:
 
 ```bash
-# Try different approaches in parallel
-make worktree feature-jwt     # JWT authentication approach
-make worktree feature-oauth   # OAuth approach in parallel
+# Clone repository
+git clone https://github.com/bryonjacob/amplifier-marketplace.git
+cd amplifier-marketplace
 
-# Compare and choose
-make worktree-list            # See all experiments
-make worktree-rm feature-jwt  # Remove the one you don't want
+# Install dependencies (shared Python packages)
+make install
+
+# Run quality checks
+make check
+
+# Run tests
+make test
 ```
-
-Each worktree is completely isolated with its own branch, environment, and context.
-
-See the [Worktree Guide](docs/WORKTREE_GUIDE.md) for advanced features, such as hiding worktrees from VSCode when not in use, adopting branches from other machines, and more.
-
-- _Tell Claude Code:_ `What make worktree commands are available to me?`
-
-- _View the documentation:_ [Worktree Guide](docs/WORKTREE_GUIDE.md)
-
-### 📊 Enhanced Status Line
-
-See costs, model, and session info at a glance:
-
-**Example**: `~/repos/amplifier (main → origin) Opus 4.1 💰$4.67 ⏱18m`
-
-Shows:
-
-- Current directory and git branch/status
-- Model name with cost-tier coloring (red=high, yellow=medium, blue=low)
-- Running session cost and duration
-
-Enable with:
-
-```
-/statusline use the script at .claude/tools/statusline-example.sh
-```
-
-### 💬 Conversation Transcripts
-
-**Never lose context again.** Amplifier automatically exports your entire conversation before compaction, preserving all the details that would otherwise be lost. When Claude Code compacts your conversation to stay within token limits, you can instantly restore the full history.
-
-**Automatic Export**: A PreCompact hook captures your conversation before any compaction event:
-
-- Saves complete transcript with all content types (messages, tool usage, thinking blocks)
-- Timestamps and organizes transcripts in `.data/transcripts/`
-- Works for both manual (`/compact`) and auto-compact events
-
-**Easy Restoration**: Use the `/transcripts` command in Claude Code to restore your full conversation:
-
-```
-/transcripts  # Restores entire conversation history
-```
-
-The transcript system helps you:
-
-- **Continue complex work** after compaction without losing details
-- **Review past decisions** with full context
-- **Search through conversations** to find specific discussions
-- **Export conversations** for sharing or documentation
-
-**Transcript Commands** (via Makefile):
-
-```bash
-make transcript-list                # List available transcripts
-make transcript-search TERM="auth"  # Search past conversations
-make transcript-restore             # Restore full lineage (for CLI use)
-```
-
-### 🏗️ Workspace Pattern for Serious Projects
-
-**For long-term development**, consider using the workspace pattern where Amplifier hosts your project as a git submodule. This architectural approach provides:
-
-- **Clean boundaries** - Project files stay in project directory, Amplifier stays pristine and updatable
-- **Version control isolation** - Each component maintains independent git history
-- **Context persistence** - AGENTS.md preserves project guidance across sessions
-- **Scalability** - Work on multiple projects simultaneously without interference
-- **Philosophy alignment** - Project-specific decision filters and architectural principles
-
-Perfect for:
-
-- Projects that will live for months or years
-- Codebases with their own git repository
-- Teams collaborating on shared projects
-- When you want to update Amplifier without affecting your projects
-- Working on multiple projects that need isolation
-
-The pattern inverts the typical relationship: instead of your project containing Amplifier, Amplifier becomes a dedicated workspace that hosts your projects. Each project gets persistent context through AGENTS.md (AI guidance), philosophy documents (decision filters), and clear namespace boundaries using `@project-name/` syntax.
-
-- _Tell Claude Code:_ `What are the recommended workspace patterns for serious projects?`
-
-- _View the documentation:_ [Workspace Pattern Guide](docs/WORKSPACE_PATTERN.md) - complete setup, usage patterns, and migration from `ai_working/`.
-
-### 💡 Best Practices & Tips
-
-**Want to get the most out of Amplifier?** Check out [The Amplifier Way](docs/THIS_IS_THE_WAY.md) for battle-tested strategies including:
-
-- Understanding capability vs. context
-- Decomposition strategies for complex tasks
-- Using transcript tools to capture and improve workflows
-- Demo-driven development patterns
-- Practical tips for effective AI-assisted development
-
-- _Tell Claude Code:_ `What are the best practices to get the MOST out of Amplifier?`
-
-- _View the documentation:_ [The Amplifier Way](docs/THIS_IS_THE_WAY.md)
-
-### ⚙️ Development Commands
-
-```bash
-make check            # Format, lint, type-check
-make test             # Run tests
-make ai-context-files # Rebuild AI context
-```
-
-### 🧪 Testing & Benchmarks
-
-Testing and benchmarking are critical to ensuring that any product leveraging AI, including Amplifier, is quantitatively measured for performance and reliability.
-Currently, we leverage [terminal-bench](https://github.com/laude-institute/terminal-bench) to reproducibly benchmark Amplifier against other agents.
-Further details on how to run the benchmark can be found in [tests/terminal_bench/README.md](tests/terminal_bench/README.md).
 
 ---
 
