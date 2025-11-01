@@ -1,0 +1,8 @@
+{
+  "name": "amp-recipes",
+  "version": "1.0.0",
+  "description": "Example recipe implementations demonstrating AI-powered development patterns",
+  "category": "examples",
+  "keywords": ["recipes", "examples", "scenarios", "templates"],
+  "dependencies": ["amp"]
+}

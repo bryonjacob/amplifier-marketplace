@@ -1,0 +1,20 @@
+{
+  "name": "amp-design",
+  "version": "1.0.0",
+  "description": "Design intelligence with 7 specialist agents and evidence-based design frameworks",
+  "category": "design",
+  "keywords": ["design", "ui", "ux", "accessibility", "components"],
+  "dependencies": ["amp"],
+  "agents": [
+    "animation-choreographer",
+    "art-director",
+    "component-designer",
+    "design-system-architect",
+    "layout-architect",
+    "responsive-strategist",
+    "voice-strategist"
+  ],
+  "commands": [
+    "designer"
+  ]
+}

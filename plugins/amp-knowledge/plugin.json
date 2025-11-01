@@ -1,0 +1,18 @@
+{
+  "name": "amp-knowledge",
+  "version": "1.0.0",
+  "description": "Knowledge synthesis and memory systems for learning and insight generation",
+  "category": "knowledge",
+  "keywords": ["knowledge", "synthesis", "learning", "memory"],
+  "dependencies": ["amp"],
+  "agents": [
+    "ambiguity-guardian",
+    "concept-extractor",
+    "content-researcher",
+    "graph-builder",
+    "insight-synthesizer",
+    "knowledge-archaeologist",
+    "pattern-emergence",
+    "visualization-architect"
+  ]
+}
