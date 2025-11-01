@@ -48,5 +48,6 @@
     "test-webapp-ui",
     "transcripts",
     "ultrathink-task"
-  ]
+  ],
+  "hooks": "hooks/hooks.json"
 }

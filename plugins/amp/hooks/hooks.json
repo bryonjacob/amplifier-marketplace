@@ -1,0 +1,64 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "python $PLUGIN_DIR/hooks/session_start.py",
+        "timeout": 10000,
+        "description": "Load relevant memories at session start"
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "python $PLUGIN_DIR/hooks/stop.py",
+        "description": "Extract and store memories on session stop"
+      }
+    ],
+    "SubagentStop": [
+      {
+        "type": "command",
+        "command": "python $PLUGIN_DIR/hooks/stop.py",
+        "description": "Extract and store memories on subagent stop"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Task",
+        "type": "command",
+        "command": "python $PLUGIN_DIR/hooks/subagent_logger.py",
+        "description": "Log subagent invocations"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "type": "command",
+        "command": "python $PLUGIN_DIR/hooks/post_tool_use.py",
+        "description": "Validate claims against memory after tool use"
+      },
+      {
+        "matcher": "Write,Edit",
+        "type": "command",
+        "command": "bash $PLUGIN_DIR/hooks/code_change.sh",
+        "description": "Run quality checks after code changes"
+      }
+    ],
+    "Notification": [
+      {
+        "type": "command",
+        "command": "python $PLUGIN_DIR/hooks/notification.py",
+        "description": "Send desktop notifications"
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "*",
+        "type": "command",
+        "command": "python $PLUGIN_DIR/hooks/precompact.py",
+        "timeout": 30000,
+        "description": "Export conversation transcript before compaction"
+      }
+    ]
+  }
+}
