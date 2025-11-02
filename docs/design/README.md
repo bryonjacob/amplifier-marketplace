@@ -43,7 +43,7 @@ These are automatically imported via `@CLAUDE.md` for all Claude Code sessions.
 
 ## Design Agents
 
-Seven specialist agents are available in `.claude/agents/`:
+Seven specialist agents are available via the `amp-design` plugin:
 
 1. **animation-choreographer** - Motion design and transitions
 2. **art-director** - Aesthetic strategy and visual direction
@@ -53,14 +53,16 @@ Seven specialist agents are available in `.claude/agents/`:
 6. **responsive-strategist** - Device adaptation and responsive design
 7. **voice-strategist** - Voice & tone for UI copy
 
+These agents are defined in `plugins/amp-design/agents/`.
+
 ## Using Design Intelligence
 
 ### Via /designer Command
 
-The `/designer` command orchestrates design work by routing tasks to appropriate specialists:
+The `/amp-design:designer` command orchestrates design work by routing tasks to appropriate specialists:
 
 ```
-/designer create a button component with hover states
+/amp-design:designer create a button component with hover states
 ```
 
 The command will:

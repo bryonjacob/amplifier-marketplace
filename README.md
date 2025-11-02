@@ -36,9 +36,10 @@ claude
 The marketplace installs 5 plugins with their capabilities:
 
 **Core Plugin (`amp`)** - Installed automatically:
-- 21 specialized agents (zen-architect, bug-hunter, security-guardian, etc.)
-- 11 utility commands (/amp:commit, /amp:prime, etc.)
-- Core development workflows
+- 37 specialized agents (zen-architect, bug-hunter, security-guardian, etc.)
+- 11 utility commands (/commit, /prime, etc.)
+- Memory system with automatic extraction and retrieval
+- Core development workflows and hooks
 
 **DDD Plugin (`ddd`)** - Document-Driven Development:
 ```
@@ -191,7 +192,8 @@ Have visualization-architect create a knowledge graph
 
 ### Documentation
 
-- **Plugin Manifests:** [.claude-plugin/](plugins/)
+- **Plugin Marketplace:** [.claude-plugin/](.claude-plugin/)
+- **Plugin Manifests:** [plugins/](plugins/)
 - **Design Framework:** [ai_context/design/](ai_context/design/)
 - **DDD Methodology:** [docs/document_driven_development/](docs/document_driven_development/)
 - **Philosophy:** [ai_context/IMPLEMENTATION_PHILOSOPHY.md](ai_context/IMPLEMENTATION_PHILOSOPHY.md)

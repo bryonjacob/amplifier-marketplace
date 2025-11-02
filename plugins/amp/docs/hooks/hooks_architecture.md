@@ -1,164 +1,112 @@
-# Claude Code Platform Architecture
+# Amplifier Hooks Architecture
 
-This directory contains the core configuration and extensions that transform Claude Code from a coding assistant into a complete development platform.
+This document describes the Claude Code hook system provided by the Amplifier `amp` plugin.
 
 ## 📁 Directory Structure
 
 ```
-.claude/
-├── agents/            # AI agents that assist with various tasks
-├── commands/          # Custom commands that extend Claude Code
-├── tools/             # Shell scripts for automation and notifications
-├── docs/              # Deep-dive documentation
-├── settings.json      # Claude Code configuration
-└── README.md          # This file
+plugins/amp/
+├── hooks/
+│   ├── hooks.json           # Hook manifest
+│   ├── session_start.py     # Memory retrieval at session start
+│   ├── stop.py              # Memory extraction on stop
+│   ├── post_tool_use.py     # Claim validation + quality checks
+│   ├── code_change.sh       # Auto quality checks on code changes
+│   ├── notification.py      # Desktop notifications
+│   ├── precompact.py        # Transcript preservation
+│   ├── subagent_logger.py   # Subagent usage tracking
+│   ├── hook_logger.py       # Shared logging utility
+│   ├── memory_cli.py        # Memory management CLI
+│   └── statusline_example.sh # Custom status line example
+└── logs/                     # Hook execution logs
 ```
 
 ## 🏗️ Architecture Overview
 
-### AI Agents
+### Hook System
 
-The `agents/` directory contains the AI agents that assist with various tasks within Claude Code.
+The `hooks/hooks.json` manifest defines all hooks available in the amp plugin:
 
-- Each `.md` file defines a specific agent and its capabilities.
-- The agents can be composed together to handle more complex tasks.
-- Agents can also share data and context with each other.
+- **SessionStart**: Memory retrieval when conversation starts
+- **Stop/SubagentStop**: Memory extraction when conversation ends
+- **PreToolUse**: Log subagent invocations before execution
+- **PostToolUse**: Validate claims and run quality checks after actions
+- **Notification**: Send desktop notifications for important events
+- **PreCompact**: Export conversation transcript before compaction
 
-### Custom Commands
+### Memory System Integration
 
-The `commands/` directory contains markdown files that define custom workflows:
+The hooks integrate tightly with Amplifier's memory system:
 
-- Each `.md` file becomes a slash command in Claude Code
-- Commands can orchestrate complex multi-step processes
-- They encode best practices and methodologies
-- Key commands include `/transcripts` for restoring conversation history after compaction
+- `session_start.py` - Retrieves relevant memories from past conversations
+- `stop.py` - Extracts key learnings, decisions, and solutions
+- `post_tool_use.py` - Validates assistant claims against stored memories
 
-### Automation Tools
+Memory system is opt-in via `MEMORY_SYSTEM_ENABLED=true` environment variable.
 
-The `tools/` directory contains scripts that integrate with Claude Code:
+### Quality Automation
 
-- `notify.sh` - Cross-platform desktop notifications
-- `make-check.sh` - Intelligent quality check runner
-- `subagent-logger.py` - Logs interactions with sub-agents
-- `hook_precompact.py` - Exports conversation transcripts before compaction
-- `transcript_manager.py` - CLI tool for managing conversation transcripts
-- Triggered by hooks defined in `settings.json`
+The `code_change.sh` hook automatically runs quality checks after code changes:
 
-### Configuration
+- Detects git worktrees and handles virtual environment conflicts
+- Runs `make check` for linting, formatting, and type checking
+- Provides immediate feedback on code quality issues
 
-`settings.json` defines:
+### Logging
 
-- **Hooks**: Automated actions after specific events
-- **Permissions**: Allowed commands and operations
-- **MCP Servers**: Extended capabilities
+All hooks use `hook_logger.py` for consistent logging:
+
+- Logs to `plugins/amp/logs/{hook_name}_YYYYMMDD.log`
+- Automatic log rotation after 7 days
+- Multi-level logging (INFO, DEBUG, WARN, ERROR)
+- Dual output to file and stderr for debugging
 
 ## 🔧 How It Works
 
 ### Event Flow
 
-1. You make a code change in Claude Code
-2. PostToolUse hook triggers `make-check.sh`
-3. Quality checks run automatically
-4. Notification hook triggers `notify.sh`
-5. You get desktop notification of results
-6. If sub-agents were used, `subagent-logger.py` logs their interactions to `.data/subagents-logs`
-7. Before conversation compaction, PreCompact hook triggers `hook_precompact.py`
-8. Full transcript is exported to `.data/transcripts/` preserving your entire conversation
+1. **On Session Start**:
+   - `session_start.py` hook triggers
+   - Searches memories for relevant context
+   - Provides context to conversation
 
-### Command Execution
+2. **On Code Change** (Write/Edit):
+   - `code_change.sh` hook triggers
+   - Runs `make check` in correct environment
+   - Reports quality issues
 
-1. You type `/command-name` in Claude Code
-2. Claude reads the command definition
-3. Executes the defined process
-4. Can spawn sub-agents for complex tasks
-5. Returns results in structured format
+3. **On Tool Use**:
+   - `post_tool_use.py` hook triggers
+   - Validates claims against memories
+   - Detects potential contradictions
 
-### Philosophy Integration
+4. **On Stop**:
+   - `precompact.py` exports full transcript to `.data/transcripts/`
+   - `stop.py` extracts memories from conversation
+   - Stores learnings for future sessions
 
-1. `/prime` command loads philosophy documents
-2. These guide all subsequent AI interactions
-3. Ensures consistent coding style and decisions
-4. Philosophy becomes executable through commands
+5. **On Notification Events**:
+   - `notification.py` sends cross-platform desktop notifications
+   - Provides immediate feedback on important events
 
-## 🚀 Extending the Platform
+### Subagent Tracking
 
-### Adding AI Agents
+The `subagent_logger.py` hook logs all subagent invocations:
 
-Options:
-
-- [Preferred]: Create via Claude Code:
-  - Use the `/agents` command to define the agent's capabilities.
-  - Provide the definition for the agent's behavior and context.
-  - Let Claude Code perform its own optimization to improve the agent's performance.
-- [Alternative]: Create manually:
-  - Define the agent in a new `.md` file within `agents/`.
-  - Include all necessary context and dependencies.
-  - Must follow the existing agent structure and guidelines.
-
-### Adding New Commands
-
-Create a new file in `commands/`:
-
-```markdown
-## Usage
-
-`/your-command <args>`
-
-## Context
-
-- What this command does
-- When to use it
-
-## Process
-
-1. Step one
-2. Step two
-3. Step three
-
-## Output Format
-
-- What the user sees
-- How results are structured
-```
-
-### Adding Automation
-
-Edit `settings.json`:
-
-```json
-{
-  "hooks": {
-    "YourEvent": [
-      {
-        "matcher": "pattern",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "your-script.sh"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-### Adding Tools
-
-1. Create script in `tools/`
-2. Make it executable: `chmod +x tools/your-tool.sh`
-3. Add to hooks or commands as needed
+- Logs to `.data/subagent-logs/YYYYMMDD.jsonl`
+- Tracks which agents are used and when
+- Helps analyze agent usage patterns
 
 ## 🎯 Design Principles
 
-1. **Minimal Intrusion**: Stay in `.claude/` to not interfere with user's project
-2. **Cross-Platform**: Everything works on Mac, Linux, Windows, WSL
-3. **Fail Gracefully**: Scripts handle errors without breaking workflow
-4. **User Control**: Easy to modify or disable any feature
-5. **Team Friendly**: Configurations are shareable via Git
+1. **Opt-in by Default**: Memory system requires explicit enablement
+2. **Fail Gracefully**: Hooks don't break workflows if they error
+3. **Cross-Platform**: Works on Mac, Linux, Windows, WSL
+4. **Minimal Overhead**: Fast execution, async where possible
+5. **Observable**: Comprehensive logging for debugging
 
-## 📚 Learn More
+## 📚 Related Documentation
 
-- [Command Reference](../.ai/docs/commands.md)
-- [Automation Guide](../.ai/docs/automation.md)
-- [Notifications Setup](../.ai/docs/notifications.md)
+- [Memory System](../../../../docs/MEMORY_SYSTEM.md)
+- [Hook Logs](./logs.md)
+- [Claude Code Hooks Reference](../../../../ai_context/claude_code/CLAUDE_CODE_HOOKS_REFERENCE.md)

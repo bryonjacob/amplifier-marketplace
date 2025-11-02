@@ -1,6 +1,6 @@
 # Claude Code Hook Logs
 
-The `.claude/logs` directory contains file-based logs from Claude Code hooks for debugging and monitoring.
+The `plugins/amp/logs/` directory contains file-based logs from Claude Code hooks for debugging and monitoring.
 
 ## Log Files
 
@@ -34,24 +34,24 @@ Logs are automatically cleaned up after 7 days to prevent disk usage issues.
 To tail a specific hook's logs:
 
 ```bash
-tail -f .claude/logs/stop_hook_*.log
+tail -f plugins/amp/logs/stop_*.log
 ```
 
 To search for errors:
 
 ```bash
-grep ERROR .claude/logs/*.log
+grep ERROR plugins/amp/logs/*.log
 ```
 
 To see today's logs:
 
 ```bash
-ls -la .claude/logs/*_$(date +%Y%m%d).log
+ls -la plugins/amp/logs/*_$(date +%Y%m%d).log
 ```
 
 ## Implementation
 
-The logging is implemented in `.claude/tools/hook_logger.py` which provides:
+The logging is implemented in `plugins/amp/hooks/hook_logger.py` which provides:
 
 - Automatic log directory creation
 - Timestamped log files per hook

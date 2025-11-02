@@ -52,7 +52,8 @@ Use strict JSON when asked (no markdown fences).
    - Spec **Output Files** must list every file the generator will write (SSOT).
 2. Normalize for tooling:
    ```
-   Bash(.claude/tools/spec_to_json.py          --contract "ai_working/<name>/<MODULE_ID>.contract.md"          --spec     "ai_working/<name>/<MODULE_ID>.impl_spec.md"          --out      "ai_working/<name>/spec_norm.json")
+   # TODO: Implement spec_to_json.py tool
+   # Bash(spec_to_json.py --contract "ai_working/<name>/<MODULE_ID>.contract.md" --spec "ai_working/<name>/<MODULE_ID>.impl_spec.md" --out "ai_working/<name>/spec_norm.json")
    ```
 3. `TodoWrite("Bootstrapped <name> artifacts", status=completed, metadata={spec_norm:"ai_working/<name>/spec_norm.json"})`
 
@@ -66,8 +67,9 @@ Use strict JSON when asked (no markdown fences).
      - `Write(ai_working/<name>/plan.md, <human summary>)`
 2. Validate & (optional) self‑revise (≤ 2 attempts):
    ```
-   Bash(.claude/tools/plan_guard.py --plan "ai_working/<name>/plan.json" --spec-norm "ai_working/<name>/spec_norm.json" --root "." --name "<name>")
-   Bash(.claude/tools/philosophy_check.py --spec-norm "ai_working/<name>/spec_norm.json" --plan "ai_working/<name>/plan.json" --root ".")
+   # TODO: Implement plan validation tools
+   # Bash(plan_guard.py --plan "ai_working/<name>/plan.json" --spec-norm "ai_working/<name>/spec_norm.json" --root "." --name "<name>")
+   # Bash(philosophy_check.py --spec-norm "ai_working/<name>/spec_norm.json" --plan "ai_working/<name>/plan.json" --root ".")
    ```
    If still failing, summarize blockers and stop.
 3. In **dry-run** mode, stop here after validation.
@@ -80,8 +82,9 @@ Use strict JSON when asked (no markdown fences).
 3. Run repo checks (existing scripts/targets).
 4. Validate & (optional) self‑revise (≤ 2 attempts):
    ```
-   Bash(.claude/tools/drift_check.py --name "<name>" --plan "ai_working/<name>/plan.json" --root ".")
-   Bash(.claude/tools/plan_guard.py --plan "ai_working/<name>/plan.json" --spec-norm "ai_working/<name>/spec_norm.json" --root "." --name "<name>")
+   # TODO: Implement validation tools
+   # Bash(drift_check.py --name "<name>" --plan "ai_working/<name>/plan.json" --root ".")
+   # Bash(plan_guard.py --plan "ai_working/<name>/plan.json" --spec-norm "ai_working/<name>/spec_norm.json" --root "." --name "<name>")
    ```
    If still failing, summarize diagnostics in `ai_working/<name>/review.md` and stop.
 5. Write `ai_working/<name>/build_summary.md` and mark TODO complete.

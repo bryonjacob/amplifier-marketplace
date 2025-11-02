@@ -49,10 +49,10 @@ MEMORY_STORAGE_DIR=.data/memories
 
 ### Components
 
-1. **Claude Code Hooks** (`.claude/tools/`)
-   - `hook_stop.py` - Extracts memories at conversation end
-   - `hook_session_start.py` - Retrieves relevant memories at start
-   - `hook_post_tool_use.py` - Validates claims against memories
+1. **Claude Code Hooks** (`plugins/amp/hooks/`)
+   - `stop.py` - Extracts memories at conversation end
+   - `session_start.py` - Retrieves relevant memories at start
+   - `post_tool_use.py` - Validates claims against memories
 
 2. **Memory Extraction** (`amplifier/extraction/`)
    - Pattern-based extraction fallback
@@ -134,9 +134,9 @@ Memories are stored in JSON format at `.data/memory.json`:
 
 ### Log Files
 
-When enabled, the memory system logs to `.claude/logs/`:
-- `stop_hook_YYYYMMDD.log` - Stop hook logs
-- `session_start_YYYYMMDD.log` - Session start logs  
+When enabled, the memory system logs to `plugins/amp/logs/`:
+- `stop_YYYYMMDD.log` - Stop hook logs
+- `session_start_YYYYMMDD.log` - Session start logs
 - `post_tool_use_YYYYMMDD.log` - Post tool use logs
 
 Logs are automatically rotated after 7 days.
@@ -145,7 +145,7 @@ Logs are automatically rotated after 7 days.
 
 1. **Memory system not activating**
    - Ensure `MEMORY_SYSTEM_ENABLED=true` is set
-   - Check logs in `.claude/logs/` for errors
+   - Check logs in `plugins/amp/logs/` for errors
 
 2. **No memories being extracted**
    - Verify conversation has substantive content

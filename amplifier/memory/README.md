@@ -188,4 +188,4 @@ Planned improvements:
 
 - [Search Module](../search/README.md) - Semantic memory search
 - [Validation Module](../validation/README.md) - Claim verification
-- [Memory CLI](../../.claude/tools/memory_cli.py) - Command-line interface
+- [Memory CLI](../../plugins/amp/hooks/memory_cli.py) - Command-line interface
