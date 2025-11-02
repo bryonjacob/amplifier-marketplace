@@ -17,8 +17,7 @@
       "description": "Core development utilities, agents, and commands for AI-assisted development",
       "version": "1.0.0",
       "category": "development",
-      "keywords": ["development", "agents", "utilities", "core"],
-      "required": true
+      "keywords": ["development", "agents", "utilities", "core"]
     },
     {
       "name": "ddd",
@@ -26,8 +25,7 @@
       "description": "Document-Driven Development methodology with numbered slash commands",
       "version": "1.0.0",
       "category": "methodology",
-      "keywords": ["ddd", "documentation", "workflow", "methodology"],
-      "dependencies": ["amp"]
+      "keywords": ["ddd", "documentation", "workflow", "methodology"]
     },
     {
       "name": "amp-design",
@@ -35,8 +33,7 @@
       "description": "Design intelligence with 7 specialist agents and evidence-based design frameworks",
       "version": "1.0.0",
       "category": "design",
-      "keywords": ["design", "ui", "ux", "accessibility", "components"],
-      "dependencies": ["amp"]
+      "keywords": ["design", "ui", "ux", "accessibility", "components"]
     },
     {
       "name": "amp-knowledge",
@@ -44,8 +41,7 @@
       "description": "Knowledge synthesis and memory systems for learning and insight generation",
       "version": "1.0.0",
       "category": "knowledge",
-      "keywords": ["knowledge", "synthesis", "learning", "memory"],
-      "dependencies": ["amp"]
+      "keywords": ["knowledge", "synthesis", "learning", "memory"]
     },
     {
       "name": "amp-recipes",
@@ -53,8 +49,7 @@
       "description": "Example recipe implementations demonstrating AI-powered development patterns",
       "version": "1.0.0",
       "category": "examples",
-      "keywords": ["recipes", "examples", "scenarios", "templates"],
-      "dependencies": ["amp"]
+      "keywords": ["recipes", "examples", "scenarios", "templates"]
     }
   ]
 }
