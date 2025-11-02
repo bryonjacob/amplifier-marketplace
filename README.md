@@ -2,6 +2,19 @@
 
 > _"Coordinated development capabilities for Claude Code"_
 
+> [!WARNING]
+> ## 🧪 EXPERIMENTAL FORK - NOT FOR PUBLIC USE
+>
+> This repository is a **personal experiment** forked from [microsoft/amplifier](https://github.com/microsoft/amplifier) to explore repackaging Amplifier as a Claude Code plugin marketplace. This is purely for my own learning and experimentation.
+>
+> **This is NOT intended for public use:**
+> - This is an active learning experiment, not a finished product
+> - The plugin marketplace structure may not be stable or correct
+> - I'm exploring how the plugin system works, not building something for distribution
+> - Use the official [microsoft/amplifier](https://github.com/microsoft/amplifier) repository instead
+>
+> If you're interested in Amplifier, please visit the official repository. If you're curious about this experiment, feel free to look around, but don't expect anything to work reliably!
+
 > [!CAUTION]
 > This project is a research demonstrator. It is in early development and may change significantly. Using permissive AI tools in your repository requires careful attention to security considerations and careful human supervision, and even then things can still go wrong. Use it with caution, and at your own risk. See [Disclaimer](#disclaimer).
 
